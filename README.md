@@ -17,11 +17,11 @@
 ### 1. 設定 LINE BOT
 1. **建立 LINE Messaging API**：
    - 前往 [LINE Developers Console](https://developers.line.biz/)。
-   - 創建一個新的 Messaging API 項目，並記錄 **Channel Access Token**。
-   - 確保 BOT 已加入您的目標群組，並設為群組管理員。
+   - 創建一個新的 Messaging API 項目，並記錄 **Channel Access Token**。(LINE Developers -> 點選 BOT -> Messaging API -> Channel access token)
+   - 確保 BOT 已加入您的目標群組 (Official Accont Manager -> 設定 -> 聊天 -> 接受邀請加入群組或多人聊天室)。
 
 2. **取得群組 ID**：
-   - 使用 [Postman](https://www.postman.com/) 或自行撰寫程式，透過 Messaging API 的 `join` 或 `push` 訊息 API 取得群組 ID。
+   - 使用 [此教學]([https://www.postman.com/](https://techblog.lycorp.co.jp/zh-hant/line-notify-migration-tips)) 或自行撰寫程式，透過 Webhook 取得群組 ID。
 
 ---
 
@@ -49,7 +49,6 @@ function getMail() {
   // 取得每個郵件線程中的郵件內容
   var myMessages = GmailApp.getMessagesForThreads(myThreads);
 
-  // 遍歷每個線程
   for (var i in myMessages) {
     for (var j in myMessages[i]) {
 
@@ -86,7 +85,7 @@ function sendLineMessage(msg) {
     "messages": [
       {
         "type": "text",
-        "text": msg // 傳送的訊息內容
+        "text": msg
       }
     ]
   };
@@ -96,9 +95,9 @@ function sendLineMessage(msg) {
     "method": "post",
     "headers": {
       "Authorization": "Bearer " + LINE_NOTIFY_TOKEN, // 驗證用的 Bearer Token
-      "Content-Type": "application/json" // 請求內容格式
+      "Content-Type": "application/json"
     },
-    "payload": JSON.stringify(payload) // 將 payload 轉換為 JSON 字串
+    "payload": JSON.stringify(payload)
   };
 
   // 傳送請求到 LINE Messaging API
@@ -119,7 +118,7 @@ function sendLineMessage(msg) {
 ### 3. 自動化執行
 1. **設置觸發器**：
    - 在 Apps Script 編輯器中，點擊「**時鐘圖示 (觸發器)**」。
-   - 新增一個觸發器，選擇 `getMail`，設定每隔 5 分鐘執行一次。
+   - 新增一個觸發器，選擇 `getMail`，設定每隔 1 分鐘執行一次。
 
 ---
 
@@ -131,7 +130,7 @@ function sendLineMessage(msg) {
    - 執行 `getMail()` 測試功能是否正常，確認訊息是否成功推送到 LINE 群組。
 
 3. **LINE Messaging API 配額**：
-   - 免費帳號每日有推送訊息的限制，請注意流量使用。
+   - 免費帳號每月有推送訊息的限制(100次)，請注意流量使用。
 
 ---
 
