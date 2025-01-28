@@ -1,3 +1,30 @@
+# 使用 LINE BOT 搭配 Google Apps Script 自動接收 Netflix 暫時存取碼並推送到 LINE 群組
+
+## 簡介
+本專案目的是實現自動化系統，利用 Google Apps Script 搜尋 Gmail 中的 Netflix 暫時存取碼，並透過 LINE BOT 推送該訊息到已加入 BOT 的 LINE 群組中。
+
+---
+
+## 功能
+1. 自動搜尋 Gmail 中的 Netflix 暫時存取碼郵件。
+2. 提取暫時存取碼中的 URL。
+3. 將處理後的訊息推送至 LINE 群組。
+
+---
+
+## 使用步驟
+
+### 1. 設定 LINE BOT
+1. **建立 LINE Messaging API**：
+   - 前往 [LINE Developers Console](https://developers.line.biz/)。
+   - 創建一個新的 Messaging API 項目，並記錄 **Channel Access Token**。
+   - 確保 BOT 已加入您的目標群組，並設為群組管理員。
+
+2. **取得群組 ID**：
+   - 使用 [Postman](https://www.postman.com/) 或自行撰寫程式，透過 Messaging API 的 `join` 或 `push` 訊息 API 取得群組 ID。
+
+---
+
 ### 2. 設定 Google Apps Script
 1. **進入 Google Apps Script 編輯器**：
    - 打開 [Google Apps Script](https://script.google.com/)。
